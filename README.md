@@ -23,6 +23,33 @@ Today, Evolution API is not limited to WhatsApp. It integrates with various plat
 ## Looking for a Lightweight Version?
 For those who need a more streamlined and performance-optimized version, check out [Evolution API Lite](https://github.com/EvolutionAPI/evolution-api-lite). It's designed specifically for microservices, focusing solely on connectivity without integrations or audio conversion features. Ideal for environments that prioritize simplicity and efficiency.
 
+## WARNING!!
+
+We, **SISMEDIKA**, uses MySQL database instead of posgres. here, we found missing column. So, please run sql script `alter_setting_table.sql` to fix the issue.
+
+Then, for creating **Baileys** instance, we need to use **python script** below:
+```shell
+from evolutionapi.client import EvolutionClient
+from evolutionapi.models.instance import InstanceConfig
+
+# ref: https://github.com/EvolutionAPI/evolution-client-python/blob/main/test_evolution.py
+
+# Configuração básica
+config = InstanceConfig(
+    instanceName="ardi-whatsapp-baileys",
+    integration="WHATSAPP-BAILEYS",
+    qrcode=True
+)
+
+client = EvolutionClient(
+    base_url='http://localhost:8080',
+    api_token='xxx683C4C9xxx15CAAFCCE10F7Dxxxxx'
+)
+
+new_instance = client.instances.create_instance(config)
+
+```
+
 ## Types of Connections
 
 Evolution API supports multiple types of connections to WhatsApp, enabling flexible and powerful integration options:
